@@ -5,8 +5,7 @@
 //Bluetooth
 uint8_t TX = 3;
 uint8_t RX = 4;
-SoftwareSerial bt(RX, TX); //read on pins 2 and 3 since tx and rx pins are taken up by usb
-//NOTE: RX PIN SHOULD CONNECT TO THE DESIGNATED TX PIN AND VICE VERSA
+SoftwareSerial bt(RX, TX);
 const uint8_t BT_STATE = 5;
 bool connectedBT = false;
 
@@ -34,11 +33,8 @@ void setup() {
   motion.setIntSignal(STHS34PF80_INT_OR);
   motion.setIntMask(0b010); //
   attachInterrupt(digitalPinToInterrupt(INT), motionISR, RISING);
-
-  //Handle the wait for the bluetooth device
   pinMode(BT_STATE, INPUT);
-  // waitForConnection();
-  // Serial.println("Bluetooth connected");
+
 }
 
 void loop() {
@@ -55,16 +51,5 @@ void loop() {
           }
       }
     }
-}
-
-void waitForConnection(){
-  while(!connectedBT){
-    if(digitalRead(BT_STATE)){
-      connectedBT = true;
-    }else{
-      Serial.println("Bluetooth not connected");
-    }
-    delay(2000);
-  }
 }
 
