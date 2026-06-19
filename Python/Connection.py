@@ -33,7 +33,7 @@ async def start_recording():
         webcam = Webcam.Webcam(0, "../../../Videos/Security/output") #be sure to put in whatever file destination you want
         webcam.start()
         try:
-            await asyncio.to_thread(webcam.record, seconds=5)
+            await asyncio.to_thread(webcam.record, seconds=100)
         finally:
             webcam.stop()
             print("Webcam stopped.")
@@ -66,7 +66,7 @@ async def main():
 if __name__ == "__main__":
     try:
         print("Arming security camera...")
-        seconds = 1
+        seconds = 30
         start_time = time.time()
         while time.time() - start_time < seconds:
             print("Connecting in: " + str(seconds - int(time.time() - start_time)) + " seconds", end="\r")
